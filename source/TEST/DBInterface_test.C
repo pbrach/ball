@@ -24,7 +24,7 @@
 #include <BALL/FORMAT/MOLFile.h>
 #include <BALL/FORMAT/INIFile.h>
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 ///////////////////////////
 
