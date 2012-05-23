@@ -35,7 +35,7 @@
 #include <BALL/COMMON/version.h>
 
 #include <QtGui/QKeyEvent>
-#include <QtGui/QTreeWidget>
+#include <QtWidgets/QTreeWidget>
 
 #include <BALL/CONCEPT/moleculeObjectCreator.h>
 #ifdef BALL_HAS_ASIO
