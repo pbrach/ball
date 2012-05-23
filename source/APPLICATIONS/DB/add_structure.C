@@ -1,7 +1,7 @@
 
 
 #include <BALL/FORMAT/DBInterface.h>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 using namespace BALL;
 
