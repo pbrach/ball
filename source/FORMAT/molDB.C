@@ -61,7 +61,7 @@ namespace BALL
 			bool status = query.exec(q.c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::getDatasetSummary","query for fetching dataset names failed due to : "+error));
 			}
 
@@ -78,7 +78,7 @@ namespace BALL
 				status = query2.exec(q.c_str());
 				if(!status || !query2.next())
 				{
-					String error(query2.lastError().databaseText().toAscii().constData());
+					String error(query2.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::getDatasetSummary","query for fetching isomer/conformation counts failed due to : "+error));
 				}
 				Size isomers = query2.value(0).toInt();
@@ -176,7 +176,7 @@ namespace BALL
 			bool status = query.exec(q.c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchMoleculesByIsomerColumn_","query for searching molecules failed due to : "+error));
 			}
 
@@ -242,7 +242,7 @@ namespace BALL
 			bool status = query.exec(q.c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::fetchDatasetConformationIDs","query for fetching conformation IDs failed due to : "+error));
 			}
 			while(query.next())
@@ -334,7 +334,7 @@ namespace BALL
 			}
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchMoleculesBySmarts","query for fetching isomer IDs failed due to : "+error));
 			}
 
@@ -400,7 +400,7 @@ namespace BALL
 				status = query.exec(q.c_str());
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchMoleculesBySmarts","query for fetching conformation IDs failed due to : "+error));
 				}
 				while(query.next())
@@ -481,7 +481,7 @@ namespace BALL
 			bool status = query.exec(q.c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchSimilarMoleculesByFingerprint","query for fetching isomer IDs failed due to : "+error));
 			}
 
@@ -545,7 +545,7 @@ namespace BALL
 				status = query.exec(q.c_str());
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchSimilarMoleculesByFingerprint","query for fetching conformation IDs failed due to : "+error));
 				}
 				while(query.next())
@@ -570,7 +570,7 @@ namespace BALL
 			bool status = query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::searchMoleculesByUCK","query for fetching molecule failed due to : "+error));
 			}
 			while(query.next())
@@ -605,7 +605,7 @@ namespace BALL
 			bool status = query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::fetchMoleculeById","query for fetching molecule failed due to : "+error));
 			}
 
@@ -677,7 +677,7 @@ namespace BALL
 			bool status = query.exec(q);
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::fetchMoleculeById","query for fetching molecule failed due to : "+error));
 			}
 
@@ -834,14 +834,14 @@ namespace BALL
 				status = query.exec();
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting molecule failed due to : "+error));
 				}
 
 				status = query.exec(("select isomer_id from isomer where hash=\""+isomer_hash+"\"").c_str());
 				if(!status || !query.next())
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","fetching ID of inserted isomer failed due to : "+error));
 				}
 				isomer_id = query.value(0).toULongLong();
@@ -853,7 +853,7 @@ namespace BALL
 				status = query.exec();
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting molecule failed due to : "+error));
 				}
 
@@ -864,7 +864,7 @@ namespace BALL
 				status = query.exec();
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting molecule failed due to : "+error));
 				}
 
@@ -891,7 +891,7 @@ namespace BALL
 						if(!ok)
 						{
 							cout<<q<<endl;
-							String error(query.lastError().databaseText().toAscii().constData());
+							String error(query.lastError().databaseText().toStdString());
 							throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","Could not create table 'functional_groups' due to : "+error));
 						}
 					}
@@ -908,7 +908,7 @@ namespace BALL
 					bool ok = query.exec(q.c_str());
 					if(!ok)
 					{
-						String error(query.lastError().databaseText().toAscii().constData());
+						String error(query.lastError().databaseText().toStdString());
 						throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","Could not store functional group counts due to : "+error));
 					}
 				}
@@ -939,7 +939,7 @@ namespace BALL
 					status = query.exec(s.c_str());
 					if(!status)
 					{
-						String error(query.lastError().databaseText().toAscii().constData());
+						String error(query.lastError().databaseText().toStdString());
 						throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for searching existing vendor information failed due to : "+error));
 					}
 					LongSize vendor_id=0;
@@ -953,14 +953,14 @@ namespace BALL
 						status = query.exec(s.c_str());
 						if(!status)
 						{
-							String error(query.lastError().databaseText().toAscii().constData());
+							String error(query.lastError().databaseText().toStdString());
 							throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting new entry into table 'vendors' failed due to : "+error));
 						}
 						s = "select vendor_id from vendors where name=\""+vendor_name+"\" and version=\""+vendorversion_+"\"";
 						status = query.exec(s.c_str());
 						if(!status)
 						{
-							String error(query.lastError().databaseText().toAscii().constData());
+							String error(query.lastError().databaseText().toStdString());
 							throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for searching existing vendor information failed due to : "+error));
 						}
 						vendor_id=0;
@@ -980,7 +980,7 @@ namespace BALL
 					if(!status)
 					{
 						cout<<s<<endl<<endl;
-						String error(query.lastError().databaseText().toAscii().constData());
+						String error(query.lastError().databaseText().toStdString());
 						throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting vendor information failed due to : "+error));
 					}
 				}
@@ -1029,14 +1029,14 @@ namespace BALL
 				status = query.exec();
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","query for inserting molecule failed"));
 				}
 
 				status = query.exec(("select conformation_id from conformation where hash=\""+conf_hash+"\"").c_str());
 				if(!status || !query.next())
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule","fetching ID of inserted conformation failed due to : "+error));
 				}
 				conformation_id = query.value(0).toULongLong();
@@ -1046,7 +1046,7 @@ namespace BALL
 				HashSet<String> property_columns;
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule()","table 'properties' does not seem to exist : "+error));
 				}
 				while(query.next())
@@ -1087,7 +1087,7 @@ namespace BALL
 							status = query.exec(String("alter table properties add column "+key+" varchar(250)").c_str());
 							if(!status)
 							{
-								String error(query.lastError().databaseText().toAscii().constData());
+								String error(query.lastError().databaseText().toStdString());
 								throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule()","adding a column to table 'properties' failed : "+error));
 							}
 							property_columns.insert(key);
@@ -1104,7 +1104,7 @@ namespace BALL
 					status = query.exec(String(q+" VALUES "+v).c_str());
 					if(!status && no_used_properties>0)
 					{
-						String error(query.lastError().databaseText().toAscii().constData());
+						String error(query.lastError().databaseText().toStdString());
 						throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeMolecule()","inserting properties failed : "+error));
 					}
 				}
@@ -1137,7 +1137,7 @@ namespace BALL
 				bool status = query.exec(s.c_str());
 				if(!status || !query.next())
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::storeResult","fetching ID of inserted result-item failed due to : "+error));
 				}
 				method_id = query.value(0).toULongLong();
@@ -1208,7 +1208,7 @@ namespace BALL
 				bool status = query.exec(q.c_str());
 				if(!status)
 				{
-					String error(query.lastError().databaseText().toAscii().constData());
+					String error(query.lastError().databaseText().toStdString());
 					throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::fetchResult","query for fetching result-entry failed due to : "+error));
 				}
 
@@ -1287,7 +1287,7 @@ namespace BALL
 			bool status = query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::deleteIsomer","query for deleting molecule failed due to : "+error));
 			}
 
@@ -1296,7 +1296,7 @@ namespace BALL
 			query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::deleteIsomer","query for deleting molecule failed due to : "+error));
 			}
 
@@ -1305,7 +1305,7 @@ namespace BALL
 			query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::deleteIsomer","query for deleting molecule failed due to : "+error));
 			}
 
@@ -1314,7 +1314,7 @@ namespace BALL
 			query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::deleteIsomer","query for deleting molecule failed due to : "+error));
 			}
 
@@ -1335,7 +1335,7 @@ namespace BALL
 			status = query.exec(s.c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::deleteConformation","query for deleting molecule failed due to : "+error));
 			}
 
@@ -1355,7 +1355,7 @@ namespace BALL
 			bool status = query.exec(String("select * from properties where conformation_id="+String(ID)).c_str());
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::buildProperties","could not fetch properties from table : "+error));
 			}
 
@@ -1580,7 +1580,7 @@ namespace BALL
 			bool status = query.exec(q);
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::fetchVendorInformation","query for fetching vendor-info failed due to : "+error));
 			}
 			while(query.next())
@@ -1614,7 +1614,7 @@ namespace BALL
 			bool status = query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create new database: "+error));
 			}
 
@@ -1623,70 +1623,70 @@ namespace BALL
 			status = query.exec("CREATE TABLE `charges` (`charge_id` int(10) unsigned NOT NULL auto_increment,`isomer_id` int(10) unsigned default NULL,`method_id` tinyint(4) default NULL,`charges` blob,PRIMARY KEY  (`charge_id`),KEY `isomer_id` (`isomer_id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'charge' : "+error));
 			}
 
 			status = query.exec("CREATE TABLE `conformation` (`conformation_id` int(10) unsigned NOT NULL auto_increment,`isomer_id` int(10) unsigned NOT NULL, `method_id` tinyint(4) default NULL,`energy` float default NULL,`coordinates` blob, `hash` varchar(40) unique, PRIMARY KEY  (`conformation_id`),KEY `isomer_id` (`isomer_id`),UNIQUE KEY `hash_idx`(`hash`)) ENGINE=MyISAM DEFAULT CHARSET=latin1");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'conformation' : "+error));
 			}
 
 			status = query.exec("CREATE TABLE `isomer`(`isomer_id` int(10) unsigned NOT NULL auto_increment,`usmile` text,`uck` varchar(40), `hash` varchar(40) unique, `MW` float, `fingerprint` blob, `logP` float, PRIMARY KEY (`isomer_id`),KEY `isomer_usmile_idx` (`usmile`(64)), UNIQUE KEY `hash_idx`(`hash`),KEY `uck_idx`(`uck`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'isomer' : "+error));
 			}
 
 			status = query.exec("CREATE TABLE `topology`(`isomer_id` int(10) unsigned NOT NULL default '0',`data` blob, PRIMARY KEY  (`isomer_id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'topology' : "+error));
 			}
 
 			status = query.exec("create table properties(conformation_id int, score double, PRIMARY KEY(`conformation_id`))");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'properties' : "+error));
 			}
 
 			status = query.exec("create table results(input_conf_id int, output_conf_id int, method_id int, score double, key(input_conf_id), key(output_conf_id), key(method_id), constraint unique key(input_conf_id,output_conf_id,method_id))");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'results' : "+error));
 			}
 
 			status = query.exec("create table methods(method_id int(10) unsigned NOT NULL auto_increment, type varchar(30), description text, target_name text, PRIMARY KEY (`method_id`))");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'methods' : "+error));
 			}
 
 			status = query.exec("create table vendor_info(isomer_id int(10) unsigned NOT NULL, vendor_id int(10), vendors_compound_id varchar(30), KEY (`isomer_id`),constraint unique key(isomer_id,vendor_id,vendors_compound_id))");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'vendor_info' : "+error));
 			}
 
 			status = query.exec("create table vendors(vendor_id int(10) unsigned NOT NULL auto_increment, name varchar(30), version varchar(30), url varchar(100), KEY (`vendor_id`), key(name), key(version), constraint unique key(name,version))");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'vendors' : "+error));
 			}
 
 			status = query.exec("create table db_info(moldb_version int(10) unsigned NOT NULL, creation_date DATE)");
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not create table 'db_info' : "+error));
 			}
 
@@ -1696,7 +1696,7 @@ namespace BALL
 			status = query.exec();
 			if(!status)
 			{
-				String error(query.lastError().databaseText().toAscii().constData());
+				String error(query.lastError().databaseText().toStdString());
 				throw(Exception::GeneralException(__FILE__, __LINE__,"MolDB::createNewDatabase","could not initialize 'db_info' table : "+error));
 			}
 		}
