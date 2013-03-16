@@ -332,11 +332,8 @@
 
 #cmakedefine BALL_HAS_QTWEBKIT
 
-// gsl
+// GSL
 #cmakedefine BALL_HAS_GSL
-
-// Glew
-#cmakedefine BALL_HAS_GLEW
 
 // MPI
 #cmakedefine BALL_HAS_MPI
