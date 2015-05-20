@@ -254,7 +254,6 @@ ENDIF()
 OPTION(BALL_HAS_VIEW "Compile BALL's VIEW library required for visualization and graphical user interfaces" ON)
 
 ## QT
-OPTION(USE_QTSQL "Compile BALL's database adapaters (requires QtSql)" ON)
 OPTION(USE_QTWEBKIT "Add support for QWebkit" ON)
 
 FIND_PACKAGE(Qt5Core REQUIRED)
