@@ -474,6 +474,10 @@ namespace BALL
  			*/
 			void exportWardClusterTreeToGraphViz(std::ostream& out);
 
+			/** Export the cluster tree in JSON format.
+ 			*/
+			void exportClusterTreeToJSON(std::ostream& out);
+
 			//@}
 
 
@@ -638,6 +642,9 @@ namespace BALL
 
 			//
 			void clear_();
+
+			// Used by exportClusterTreeToJSON
+			void exportToJSONDFS_(ClusterTreeNode const& current, String& result);
 
 			// only used by trivial clustering
 			Eigen::MatrixXd                  pairwise_scores_;
