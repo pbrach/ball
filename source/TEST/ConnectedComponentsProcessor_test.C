@@ -48,9 +48,8 @@ CHECK( applied on empty System )
 	
 	TEST_EQUAL(ccp.getNumberOfConnectedComponents(), 0)
 	
-	ccp.splitIntoMolecules(sys);
-	
-	ConnectedComponentsProcessor::ComponentVector components = ccp.getComponents();
+	ConnectedComponentsProcessor::ComponentVector components;
+	ccp.getComponents(components);
 	TEST_EQUAL(components.size(), 0)
 
 RESULT
@@ -67,7 +66,7 @@ CHECK( getNumberOfConnectedComponents() )
 RESULT
 
 
-CHECK( splitIntoMolecules() )
+CHECK( apply() )
 	ConnectedComponentsProcessor ccp;
 	System sys;	
 	MOL2File mol(BALL_TEST_DATA_PATH(ConnectedComponentsProcessor_test.mol2), std::ios::in);	
@@ -75,15 +74,16 @@ CHECK( splitIntoMolecules() )
 	
 	sys.apply(ccp);
 
-	ccp.splitIntoMolecules(sys);
+	ConnectedComponentsProcessor::MolVec molecules;
+	ccp.getAllComponents(molecules);
 
-	for (MoleculeIterator m_it = sys.beginMolecule(); +m_it; ++m_it)
+	for (Position i=0; i<molecules.size(); ++i)
 	{
-		TEST_EQUAL(m_it->countAtoms(), 10)
+		TEST_EQUAL(molecules[i].countAtoms(), 10)
 	}
 RESULT
 
-CHECK( splitIntoMolecules() twice )
+CHECK( apply() twice )
 	ConnectedComponentsProcessor ccp;
 	System sys;	
 	MOL2File mol(BALL_TEST_DATA_PATH(ConnectedComponentsProcessor_test.mol2), std::ios::in);	
@@ -91,17 +91,18 @@ CHECK( splitIntoMolecules() twice )
 
 	sys.apply(ccp);
 
-	ccp.splitIntoMolecules(sys);
+	ConnectedComponentsProcessor::MolVec molecules;
+	ccp.getAllComponents(molecules);
 
 	sys.apply(ccp);
 
-	ccp.splitIntoMolecules(sys);
+	ccp.getAllComponents(molecules);
 
-
-	for (MoleculeIterator m_it = sys.beginMolecule(); +m_it; ++m_it)
+	for (Position i=0; i<molecules.size(); ++i)
 	{
-		TEST_EQUAL(m_it->countAtoms(), 10)
+		TEST_EQUAL(molecules[i].countAtoms(), 10)
 	}
+
 RESULT
 
 
@@ -115,8 +116,8 @@ CHECK( getComponents() )
 	
 	sys.apply(ccp);
 
-	ccp.splitIntoMolecules(sys);
-	ConnectedComponentsProcessor::ComponentVector components = ccp.getComponents();
+	ConnectedComponentsProcessor::ComponentVector components;
+ 	ccp.getComponents(components);
 	TEST_EQUAL(components.size(), 2)
 	TEST_EQUAL(components[0].size(), 10)
 
