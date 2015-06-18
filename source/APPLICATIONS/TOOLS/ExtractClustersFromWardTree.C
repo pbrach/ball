@@ -31,7 +31,7 @@ int main (int argc, char **argv)
 	// - parameter type
 	// - required
 	parpars.registerMandatoryInputFile("i", "input serialized cluster file");
-	parpars.registerParameter("i_type", "input type (binary, text)", STRING, false, "binary");
+	parpars.registerOptionalStringParameter("i_type", "input type (binary, text)", "binary");
 
 	// we register an output file parameter 
 	// - CLI switch
