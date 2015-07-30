@@ -1,15 +1,13 @@
 // -*- Mode: C++; tab-width: 2; -*-
 // vi: set ts=2:
 //
-// $Id: pyInterpreter.C,v 1.13.18.1 2007/03/25 21:42:50 oliver Exp $
-//
 
 #include <BALL/PYTHON/pyInterpreter.h>
-#include <Python.h>
-
 #include <BALL/PYTHON/BALLPythonConfig.h>
 
 #include <BALL/FORMAT/lineBasedFile.h>
+
+#include <Python.h>
 
 namespace BALL
 {
@@ -232,7 +230,7 @@ namespace BALL
 			return 0;
 		}
 
-		PyObject* mod_name = PyString_FromString(name.toAscii().data());
+		PyObject* mod_name = PyString_FromString(name.toLatin1().data());
 
 		PyObject* module = 0;
 
@@ -243,7 +241,7 @@ namespace BALL
 		else
 		{
 			//This could leak the imported module. Need to check...
-			module = PyImport_ImportModule(name.toAscii().data());
+			module = PyImport_ImportModule(name.toLatin1().data());
 		}
 
 		Py_XDECREF(mod_name);
@@ -264,11 +262,11 @@ namespace BALL
 
 		if(mod == 0)
 		{
-			Log.error() << "Could not load module " << module.toAscii().data() << std::endl;
+			Log.error() << "Could not load module " << module.toStdString() << std::endl;
 			return false;
 		}
 
-		PyObject* func = PyObject_GetAttrString(mod, func_name.toAscii().data());
+		PyObject* func = PyObject_GetAttrString(mod, func_name.toLatin1().data());
 
 		if(!func || !PyCallable_Check(func))
 		{
@@ -292,15 +290,15 @@ namespace BALL
 				continue;
 			}
 
-			PyObject* val = PyString_FromString(it->second.toAscii().data());
+			PyObject* val = PyString_FromString(it->second.toLatin1().data());
 
 			if(!val)
 			{
-				Log.error() << "Could not create parameter" << it->first.toAscii().data() << "=" << it->second.toAscii().data() << " Skipping." << std::endl;
+				Log.error() << "Could not create parameter" << it->first.toStdString() << "=" << it->second.toStdString() << " Skipping." << std::endl;
 				continue;
 			}
 
-			PyDict_SetItemString(dict, it->first.toAscii().data(), val);
+			PyDict_SetItemString(dict, it->first.toLatin1().data(), val);
 		}
 
 		Py_DECREF(dict);
@@ -338,6 +336,17 @@ namespace BALL
 		
 		state = (runSingleString_(s, Py_single_input) != 0);
 
+		if (!state)
+		{
+			// save the error message, because resetting stdout would overwrite it
+			String result = error_message_;
+
+			runSingleString_("sys.stdout=stdout", Py_single_input);
+			runSingleString_("sys.stderr=stderr", Py_single_input);
+
+			return result;
+		}
+
 		// retrieve output
 		char* buf = 0;
 		PyObject* result = runSingleString_("str(CIO.getvalue())", Py_eval_input);
@@ -353,7 +362,6 @@ namespace BALL
 	}
 
 	String PyInterpreter::runFile(const String& filename)
-		throw(Exception::FileNotFound)
 	{
 		if (!valid_) return "";
 

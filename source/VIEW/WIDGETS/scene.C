@@ -74,19 +74,20 @@
 
 #endif
 
-#include <QtGui/QMenuBar>
-#include <QtGui/QPrinter>
-#include <QtGui/QPrintDialog>
+#include <QtCore/QMimeData>
+#include <QtWidgets/QMenuBar>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
 #include <QtGui/QPainter>
 #include <QtGui/QImage>
 #include <QtGui/QCursor>
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QFileDialog>
-#include <QtGui/QInputDialog>
-#include <QtGui/QProgressBar>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QInputDialog>
+#include <QtWidgets/QProgressBar>
 #include <QtOpenGL/QGLPixelBuffer>
-#include <QtGui/QMessageBox>
+#include <QtWidgets/QMessageBox>
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real.hpp>
@@ -122,7 +123,7 @@ namespace BALL
 		float Scene::animation_smoothness_ = 2;
 		float Scene::downsampling_factor_ = 1;
 
-		Scene::Scene(QWidget* parent_widget, const char* name, Qt::WFlags w_flags)
+		Scene::Scene(QWidget* parent_widget, const char* name, Qt::WindowFlags w_flags)
 			:	QWidget(parent_widget, w_flags),
 				ModularWidget(name),
 				system_origin_(0.0, 0.0, 0.0),
@@ -144,8 +145,8 @@ namespace BALL
 				want_to_use_vertex_buffer_(false),
 				use_preview_(true),
 				show_fps_(false),
-				toolbar_view_controls_(new QToolBar(tr("3D View Controls"), this)),
-				toolbar_edit_controls_(new QToolBar(tr("Edit Controls"), this)),
+				toolbar_view_controls_(new QToolBar(tr("3D View Controls"))),
+				toolbar_edit_controls_(new QToolBar(tr("Edit Controls"))),
 				main_display_(new GLRenderWindow(this)),
 				main_renderer_(0),
 				stereo_left_eye_(-1),
@@ -174,7 +175,7 @@ namespace BALL
 				registerWidget(this);
 			}
 
-		Scene::Scene(const Scene& scene, QWidget* parent_widget, const char* name, Qt::WFlags w_flags)
+		Scene::Scene(const Scene& scene, QWidget* parent_widget, const char* name, Qt::WindowFlags w_flags)
 			:	QWidget(parent_widget, w_flags),
 				ModularWidget(scene),
 				system_origin_(scene.system_origin_),
@@ -193,8 +194,8 @@ namespace BALL
 #ifdef BALL_HAS_RTFACT
 				continuous_loop_(false),
 #endif
-				toolbar_view_controls_(new QToolBar(tr("3D View Controls"), this)),
-				toolbar_edit_controls_(new QToolBar(tr("Edit Controls"), this)),
+				toolbar_view_controls_(new QToolBar(tr("3D View Controls"))),
+				toolbar_edit_controls_(new QToolBar(tr("Edit Controls"))),
 				main_display_(new GLRenderWindow(this)),
 				main_renderer_(0),
 				stereo_left_eye_(-1),
@@ -2289,7 +2290,7 @@ namespace BALL
 			{
 				// it's a GLRenderer => use tiling
 				GLOffscreenTarget* new_widget = new GLOffscreenTarget(main_display_, filename);
-				new_widget->init();
+				//new_widget->init();
 				new_widget->resize(width(), height());
 				new_widget->prepareRendering();
 

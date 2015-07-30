@@ -6,15 +6,15 @@
 #include <BALL/KERNEL/bond.h>
 #include <BALL/KERNEL/residue.h>
 
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 
 namespace BALL
 {
 	namespace VIEW
 	{
 
-BondProperties::BondProperties( Atom* atom, QWidget* parent,  const char* name, bool, Qt::WFlags fl )
+BondProperties::BondProperties( Atom* atom, QWidget* parent,  const char* name, bool, Qt::WindowFlags fl )
   : QDialog(parent, fl),
 		Ui_BondPropertiesData(),
 		atom_(atom)

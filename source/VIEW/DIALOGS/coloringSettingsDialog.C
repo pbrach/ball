@@ -6,17 +6,17 @@
 #include <BALL/VIEW/MODELS/standardColorProcessor.h>
 #include <BALL/KERNEL/PTE.h>
 
-#include <QtGui/QColorDialog>
-#include <QtGui/QSlider>
-#include <QtGui/QLabel>
-#include <QtGui/QStackedWidget>
-#include <QtGui/QCheckBox>
+#include <QtWidgets>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QCheckBox>
 
 namespace BALL
 {
 	namespace VIEW
 	{
-		ColoringSettingsDialog::ColoringSettingsDialog( QWidget* parent,  const char* name, Qt::WFlags fl )
+		ColoringSettingsDialog::ColoringSettingsDialog( QWidget* parent,  const char* name, Qt::WindowFlags fl )
 			: QWidget(parent, fl),
 				Ui_ColoringSettingsDialogData(),
 				PreferencesEntry()

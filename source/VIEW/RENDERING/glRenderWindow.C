@@ -2,8 +2,6 @@
 // vi: set ts=2:
 //
 
-#include <GL/glew.h>
-
 #include <BALL/VIEW/RENDERING/glRenderWindow.h>
 #include <BALL/VIEW/WIDGETS/scene.h>
 #include <BALL/COMMON/logStream.h>
@@ -46,7 +44,7 @@ namespace BALL
 			setAutoFillBackground(false);
 		}
 
-		GLRenderWindow::GLRenderWindow(QWidget* parent_widget, const char* /*name*/, Qt::WFlags w_flags)
+		GLRenderWindow::GLRenderWindow(QWidget* parent_widget, const char* /*name*/, Qt::WindowFlags w_flags)
 			: QGLWidget(gl_format_, parent_widget, (QGLWidget*)0, w_flags),
 			  stereo_delta_(0.),
 			  m_screenTexID(0),
@@ -66,7 +64,7 @@ namespace BALL
 			setAutoFillBackground(false);
 		}
 
-		GLRenderWindow::GLRenderWindow(const GLRenderWindow& window, QWidget* parent_widget, const char* /*name*/, Qt::WFlags w_flags)
+		GLRenderWindow::GLRenderWindow(const GLRenderWindow& window, QWidget* parent_widget, const char* /*name*/, Qt::WindowFlags w_flags)
 			: QGLWidget(gl_format_, parent_widget, reinterpret_cast<QGLWidget const*>(&window), w_flags),
 			  stereo_delta_(0.),
 			  m_screenTexID(0),

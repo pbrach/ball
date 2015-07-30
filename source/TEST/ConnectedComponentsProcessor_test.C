@@ -50,7 +50,6 @@ CHECK( applied on empty System )
 	
 	ConnectedComponentsProcessor::ComponentVector components;
 	ccp.getComponents(components);
-	
 	TEST_EQUAL(components.size(), 0)
 
 RESULT
@@ -67,7 +66,7 @@ CHECK( getNumberOfConnectedComponents() )
 RESULT
 
 
-CHECK( splitIntoMolecules() )
+CHECK( apply() )
 	ConnectedComponentsProcessor ccp;
 	System sys;	
 	MOL2File mol(BALL_TEST_DATA_PATH(ConnectedComponentsProcessor_test.mol2), std::ios::in);	
@@ -86,7 +85,7 @@ CHECK( splitIntoMolecules() )
 	}
 RESULT
 
-CHECK( splitIntoMolecules() twice )
+CHECK( apply() twice )
 	ConnectedComponentsProcessor ccp;
 	System sys;	
 	MOL2File mol(BALL_TEST_DATA_PATH(ConnectedComponentsProcessor_test.mol2), std::ios::in);	
@@ -115,6 +114,7 @@ CHECK( splitIntoMolecules() twice )
 	{
 		TEST_EQUAL( (*m_it).countAtoms(), 10)
 	}
+
 RESULT
 
 
@@ -129,8 +129,7 @@ CHECK( getComponents() )
 	sys.apply(ccp);
 
 	ConnectedComponentsProcessor::ComponentVector components;
-	ccp.getComponents(components);
-	
+ 	ccp.getComponents(components);
 	TEST_EQUAL(components.size(), 2)
 	TEST_EQUAL(components[0].size(), 10)
 
